@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { isCommandAllowed } = require("../utils/commandAllowlist.js");
-const { node1, node2} = require("../services/heartbeatService.js");
+const { node1, node2 } = require("../services/heartbeatService.js");
 const { executeCommand } = require("../services/sshService");
+const { createLog } = require("../utils/commandLogs.js");
+const CommandLog = require("../models/commandLogModel.js");
 
-router.post("/api/nodes/:id/command", async(req, res) => {
+router.post("/api/nodes/:id/command", async (req, res) => {
     const command = req.body.command;
 
     const nodeId = req.params.id;
@@ -27,11 +29,37 @@ router.post("/api/nodes/:id/command", async(req, res) => {
     }
     try {
         const output = await executeCommand(command);
+
+        const log = await createLog(
+            node.id,
+            command,
+            "success",
+            output,
+            "admin"
+        );
+
+        console.log("Command log:", log);
+
         res.send(output);
     } catch (error) {
-        console.log("SSH command error:", error);
+         const log = createLog(
+            node.id,
+            command,
+            "failed",
+            error.message,
+            "admin"
+        );
+        console.log(" command log:", log);
         res.status(500).send(error.message);
     }
-    
+
+});
+router.get("/api/nodes/:id/commands", async (req, res) => {
+
+    const nodeId = Number(req.params.id);
+
+    const logs = await CommandLog.find({ nodeId: nodeId });
+
+    res.json(logs);
 });
 module.exports = router;
