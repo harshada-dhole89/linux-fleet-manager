@@ -22,7 +22,7 @@ async function checkNode(node) {
             const timeout = setTimeout(() => {
                 controller.abort();
             }, 5000);
-            const response = await fetch(node.url+"/heartbeat", { signal: controller.signal });
+            const response = await fetch(node.url + "/heartbeat", { signal: controller.signal });
             clearTimeout(timeout);
             node.missedHeartbeats = 0;
             node.status = "online";
@@ -34,10 +34,11 @@ async function checkNode(node) {
             break;
         } catch (error) {
             console.log("Node error:", node.id, error.message);
-            if(attempt<3){
-            await new Promise(resolve => setTimeout(resolve, delay));
-            delay=delay*2;}
-            
+            if (attempt < 3) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay = delay * 2;
+            }
+
 
         }
     }
@@ -54,6 +55,8 @@ async function checkNode(node) {
 setInterval(() => {
     checkNode(node1);
     checkNode(node2);
-    
+
 }, 10000);
-module.exports = checkNode;
+module.exports = {
+    node1, node2, checkNode
+};
