@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { isCommandAllowed } = require("../utils/commandAllowlist.js");
-const { node1, node2, checkNode } = require("../services/heartbeatService.js");
-const { exec } = require("child_process");
+const { node1, node2} = require("../services/heartbeatService.js");
+const { executeCommand } = require("../services/sshService");
 
-router.post("/api/nodes/:id/command", (req, res) => {
+router.post("/api/nodes/:id/command", async(req, res) => {
     const command = req.body.command;
 
     const nodeId = req.params.id;
@@ -25,16 +25,13 @@ router.post("/api/nodes/:id/command", (req, res) => {
     if (node.status !== "online") {
         return res.status(503).send("Node is not available");
     }
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            return res.status(500).send("Command execution failed");
-        }
-
-        if (stderr) {
-            return res.status(500).send(stderr);
-        }
-
-        res.send(stdout);
-    });
+    try {
+        const output = await executeCommand(command);
+        res.send(output);
+    } catch (error) {
+        console.log("SSH command error:", error);
+        res.status(500).send(error.message);
+    }
+    
 });
 module.exports = router;
