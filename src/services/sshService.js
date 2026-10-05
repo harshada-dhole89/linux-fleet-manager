@@ -2,7 +2,7 @@ const { Client } = require("ssh2");
 const fs = require("fs");
 require("dotenv").config();
 
-function executeCommand(command) {
+function executeCommand(node, command) {
 
     return new Promise((resolve, reject) => {
 
@@ -47,8 +47,8 @@ function executeCommand(command) {
         });
 
         conn.connect({
-            host: process.env.SSH_HOST,
-            username: process.env.SSH_USER,
+            host: node.ip_address,
+            username: node.ssh_user,
             privateKey: fs.readFileSync(process.env.SSH_KEY_PATH)
         });
     });

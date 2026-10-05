@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const commandLogSchema = new mongoose.Schema({
     nodeId: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Node",
         required: true
     },
 
