@@ -14,8 +14,7 @@ const commandLogSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        enum: ["pending", "success", "failed"],
-        required: true
+        enum: ["success", "failed", "rejected"]
     },
 
     output: {

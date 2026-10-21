@@ -12,6 +12,7 @@ async function checkDatabaseNodes() {
                 ? "/metrics"
                 : "/heartbeat";
 
+                
         const url = `http://${node.ip_address}:${node.port}${endpoint}`;
 
         const heartbeatNode = {
@@ -138,7 +139,7 @@ async function checkNode(node) {
         const elapsedTime =
             new Date() - node.unreachableSince;
 
-        if (elapsedTime >= 300000) {
+        if (elapsedTime >= 300000) {//5 min
             node.status = "offline";
 
             console.log("Node status: offline");
