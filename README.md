@@ -67,29 +67,42 @@ cd linux-fleet-manager
 npm install
 ```
 
+
+
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the project root. Configure the variables required by your application, such as:
+Create a `.env` file in the project root directory.
 
 ```env
-PORT=3000
-MONGODB_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_long_random_secret
 ```
 
-Use the port and variable names expected by your actual application. Never commit real database credentials, JWT secrets, or private SSH keys.
+- `MONGO_URI`: MongoDB connection string.
+- `JWT_SECRET`: A strong, randomly generated secret used to sign JWTs.
+
+Never commit your `.env` file or share real credentials. Keep secrets out of GitHub.
+
+
+
+
 
 ### 4. Start the Backend
+
+From the project root directory, run:
 
 ```bash
 npm start
 ```
 
-Check the health endpoint using the port configured for your backend:
+The backend listens on port `4000`.
+
+Check the health endpoint:
 
 ```text
-http://localhost:3000/health
+http://localhost:4000/health
 ```
+
 
 ### 5. Start the Frontend
 
@@ -131,5 +144,4 @@ Open the local URL printed by Vite in your terminal.
 **Harshada Dhole**
 
 B.Tech — Computer Science and Engineering (IoT)
-
 GitHub: [harshada-dhole89](https://github.com/harshada-dhole89)
