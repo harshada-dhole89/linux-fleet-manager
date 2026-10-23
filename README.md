@@ -21,10 +21,12 @@ A web-based system to monitor Linux servers, track system health, visualize reso
 ![Linux Fleet Manager Overview](screenshots/overview.png)
 
 ### 2. Fleet Nodes
+
 ![Fleet Nodes](screenshots/nodes.png)
 
 ### 3. System Monitoring
 ![CPU, RAM and Disk Monitoring](screenshots/Monitoring.png)
+**Note:** The screenshots show the system at different points in time during testing. The Nodes page captures a node's connectivity status, while the Monitoring page displays metrics collected by Prometheus. A node may become unreachable to the Fleet Manager while previously collected metrics remain visible in Prometheus and Grafana.
 
 ### 4. Remote Command Execution
 ![Remote Command Execution](screenshots/execute_command.png)
