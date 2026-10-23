@@ -17,7 +17,7 @@ app.use(cors({
 }));
 
 const port=4000;
-connectDB();
+
 
 //register routes
 app.use("/",healthRoutes);
@@ -26,8 +26,18 @@ app.use("/", nodeRoutes);
 app.use("/", authRoutes);
 
 
-app.listen(port,()=>{
-    console.log(`linux fleet manager is listening on port ${port}`);
-})
+async function startServer() {
+    try {
+        await connectDB();
 
+        app.listen(port, () => {
+            console.log(`Linux Fleet Manager is listening on port ${port}`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error.message);
+        process.exit(1);
+    }
+}
+
+startServer();
 

@@ -17,7 +17,7 @@ router.post("/api/auth/login", async (req, res) => {
         return res.status(401).send("Invalid credentials");
 
     }
-    console.log("JWT SECRET EXISTS:", !!process.env.JWT_SECRET);
+
     const token = jwt.sign(
         {
             userId: user._id,
