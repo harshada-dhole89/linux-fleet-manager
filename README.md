@@ -14,6 +14,24 @@ A web-based system to monitor Linux servers, track system health, visualize reso
 - **Visualization:** Grafana dashboards for monitoring server performance.
 - **Web Dashboard:** React-based frontend for interacting with the system.
 
+
+## Screenshots
+
+### 1. Dashboard Overview
+![Linux Fleet Manager Overview](screenshots/overview.png)
+
+### 2. Fleet Nodes
+![Fleet Nodes](screenshots/nodes.png)
+
+### 3. System Monitoring
+![CPU, RAM and Disk Monitoring](screenshots/Monitoring.png)
+
+### 4. Remote Command Execution
+![Remote Command Execution](screenshots/execute_command.png)
+
+### 5. Command History and Audit Logs
+![Command History and Audit Logs](screenshots/command_history.png)
+
 ## Tech Stack
 
 | Component | Technology |
